@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body%}
-    <section class="mx-auto container col-md-12 mt-5">
+    <section class="mx-auto container col-md-12">
       <div class="bd-example">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -33,16 +33,36 @@
             <span class="sr-only">Siguiente</span>
           </a>
         </div>
+        
 
         <div class="d-flex justify-content-center bg-dark" style="color: white;">
-          <h2>Nuevos</h2>
+          <h2 >Nuevos</h2>
+          <a href="{% url 'agregarProducto' %}"><button type="button" class="btn btn-primary ml-3 justify-content-end" style="margin-bottom: 2%;margin-top: 2%;">Añadir producto</button></a> 
         </div>
 
         <div class="d-flex justify-content-center bg-light">
-          <h2>Nuevos</h2>
-    
+         <div class="container">   
+            <div class="row">
+              {% for Producto in productos %}
+              <div class="col-3">
+                <div class="card" style="width: 18rem; display:inline-flex;">
+                 <a href="#">
+                 <img src="../static/img/gpu amd 6800xt.jpg" height="200px" class="card-img-top" alt="Perro 1">
+                 </a>
+                 <div class="card-body">
+                    <p class="card-text">{{Producto.Nombre}}</p>
+                    <p class="card-text">{{Producto.Stock}}</p>
+                 </div>
+                 <div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-bottom: 5px;">
+                    <a class="btn btn-success col-md-5 " href="#" role="button" >Editar</a>
+                    <a class="btn btn-danger col-md-5 " href="#" role="button"  >Eliminar</a>
+                 </div>
+               </div> 
+              </div>
+                {% endfor %}
+              </div>
+          </div>
         </div>
-      </div>
-    </section>
-    
+        
+  </section>
 {% endblock %}

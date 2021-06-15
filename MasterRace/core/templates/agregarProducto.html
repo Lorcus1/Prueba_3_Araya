@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block body%}
+
+    <div class="container" style="padding-left: 10%; padding-right: 10%;padding-top: 1%;">
+        <h2>Agregar perros</h2>
+        <form action="{% url 'añadirPerro' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-2">
+                <label for="Nro_chip" class="form-label">Nro Chip :</label>
+                <input type="number" class="form-control" id="Nro_chip" name="Nro_chip">
+            </div>
+            <div class="mb-2">
+                <label for="Nombre_Perro" class="form-label">Nombre :</label>
+                <input type="text" class="form-control" id="Nombre_Perro" name="Nombre_Perro">
+            </div>
+            <div class="mb-2">
+                <label for="Edad_Perro" class="form-label">Edad :</label>
+                <input type="number" class="form-control" id="Edad_Perro" name="Edad_Perro">
+            </div>
+            <div class="mb-2"> 
+                <label for="Raza" class="form-label">Raza :</label>
+                <select class="form-select " id="Raza" name="Raza">
+                    {%for Raza in razas%}
+                    <option value="{{Raza.id}}">{{Raza.Raza}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="Sexo" class="form-label">Sexo :</label>
+                <select class="form-select " id="Sexo" name="Sexo">
+                    <option value="Macho">Macho</option>
+                    <option value="Hembra">Hembra</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="Adapt" class="form-label">Se adapta a departamento :</label>
+                <select class="form-select " id="Adapt" name="Adapt">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="C_ninos" class="form-label">Convive con niños :</label>
+                <select class="form-select " id="C_ninos" name="C_ninos">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="C_perros" class="form-label">Convive con perros :</label>
+                <select class="form-select " id="C_perros" name="C_perros">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="C_gatos" class="form-label">Convive con gatos :</label>
+                <select class="form-select " id="C_gatos" name="C_gatos">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="Energia" class="form-label">Nivel de energía:</label>
+                <select class="form-select " id="Energia" name="Energia">
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label for="Esteril" class="form-label">Estirilizado :</label>
+                <select class="form-select " id="Esteril" name="Esteril">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <label for="imagen" class="form-label">Imagen: </label>
+                <input class="form-control" type="file" id="imagen" name="imagen">
+              </div>
+            <div class="mb-2">
+                <button type="submit" class="btn btn-success">Agregar</button>
+            </div>
+        </form>
+    </div>
+{%endblock%}
