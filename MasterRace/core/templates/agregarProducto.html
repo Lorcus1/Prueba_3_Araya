@@ -3,87 +3,54 @@
 
 {%block body%}
 
-    <div class="container" style="padding-left: 10%; padding-right: 10%;padding-top: 1%;">
-        <h2>Agregar perros</h2>
-        <form action="{% url 'añadirPerro' %}" method="POST" enctype="multipart/form-data">
+    <div class="mx-auto container bg-light" style="padding-top: 1%;"  >
+        <div class="row mt-4">
+        <h2>Agregar producto</h2>
+        <form action="#" method="POST" enctype="multipart/form-data" class="col-md-8  container justify-content-center mt-4 mb-4">
             {% csrf_token %}
+            
             <div class="mb-2">
-                <label for="Nro_chip" class="form-label">Nro Chip :</label>
-                <input type="number" class="form-control" id="Nro_chip" name="Nro_chip">
+                <label for="Nombre" class="form-label">Nombre :</label>
+                <input type="text" class="form-control" id="Nombre" name="Nombre">
             </div>
-            <div class="mb-2">
-                <label for="Nombre_Perro" class="form-label">Nombre :</label>
-                <input type="text" class="form-control" id="Nombre_Perro" name="Nombre_Perro">
-            </div>
-            <div class="mb-2">
-                <label for="Edad_Perro" class="form-label">Edad :</label>
-                <input type="number" class="form-control" id="Edad_Perro" name="Edad_Perro">
-            </div>
+
             <div class="mb-2"> 
-                <label for="Raza" class="form-label">Raza :</label>
-                <select class="form-select " id="Raza" name="Raza">
-                    {%for Raza in razas%}
-                    <option value="{{Raza.id}}">{{Raza.Raza}}</option>
+                <label for="Fabricante" class="form-label">Fabricante :</label>
+                <select class="form-select " id="Fabricante" name="Fabricante">
+                    {%for Fabricante in fabricantes%}
+                    <option value="{{Fabricante.ID}}">{{Fabricante.Nombre}}</option>
                     {% endfor %}
                 </select>
             </div>
+
             <div class="mb-2"> 
-                <label for="Sexo" class="form-label">Sexo :</label>
-                <select class="form-select " id="Sexo" name="Sexo">
-                    <option value="Macho">Macho</option>
-                    <option value="Hembra">Hembra</option>
+                <label for="Componente" class="form-label">Componente :</label>
+                <select class="form-select " id="Componente" name="Componente">
+                    {%for Componente in componentes%}
+                    <option value="{{Componente.ID}}">{{Componente.Nombre}}</option>
+                    {% endfor %}
                 </select>
             </div>
-            <div class="mb-2"> 
-                <label for="Adapt" class="form-label">Se adapta a departamento :</label>
-                <select class="form-select " id="Adapt" name="Adapt">
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label for="C_ninos" class="form-label">Convive con niños :</label>
-                <select class="form-select " id="C_ninos" name="C_ninos">
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label for="C_perros" class="form-label">Convive con perros :</label>
-                <select class="form-select " id="C_perros" name="C_perros">
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label for="C_gatos" class="form-label">Convive con gatos :</label>
-                <select class="form-select " id="C_gatos" name="C_gatos">
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label for="Energia" class="form-label">Nivel de energía:</label>
-                <select class="form-select " id="Energia" name="Energia">
-                    <option value="Alta">Alta</option>
-                    <option value="Media">Media</option>
-                    <option value="Baja">Baja</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label for="Esteril" class="form-label">Estirilizado :</label>
-                <select class="form-select " id="Esteril" name="Esteril">
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
+        
             <div class="mb-2">
-                <label for="imagen" class="form-label">Imagen: </label>
-                <input class="form-control" type="file" id="imagen" name="imagen">
+                <label for="Precio" class="form-label">Precio :</label>
+                <input type="number" class="form-control" id="Precio" name="Precio">
+            </div>
+
+            <div class="mb-2">
+                <label for="Stock" class="form-label">Stock :</label>
+                <input type="number" class="form-control" id="Stock" name="Stock">
+            </div>
+            
+        
+            <div class="mb-2">
+                <label for="Imagen" class="form-label">Imagen: </label>
+                <input class="form-control" type="file" id="Imagen" name="Imagen">
               </div>
             <div class="mb-2">
-                <button type="submit" class="btn btn-success">Agregar</button>
+                <button type="submit" class="btn btn-success">Agregar producto</button>
             </div>
         </form>
+    </div>
     </div>
 {%endblock%}

@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="../static/css/style.css">
 {%block js%}
 {%endblock%}
-    <title>AYUDA A UN PELUDO - ONG</title>
+    <title>PC MASTER RACE</title>
     </head>
-    <body background="../static/img/background/bg.jpg" >
-        <div class="container">
-        <nav class="navbar navbar-expand navbar-dark bg-dark col-md-12" >
+    <body background="../static/img/background/bg.jpg">
+        <div class="container ">
+        <nav class="navbar navbar-expand navbar-dark bg-dark" >
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="../static/img/interface/pc-logo.jpg" width="50" height="auto" alt="" style="margin-right: 2%;border-radius: 100%;" >
             </a>
@@ -64,6 +64,33 @@
                 <li class="nav-item "s>
                     <a class="nav-link" href="#">M2</a>
                 </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        
+                        {% if user.is_authenticated %}
+                        {% if user.username != 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{user.username}}</a>
+                        </li>
+                        {% elif user.username == 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Panel' %}">{{user.username}}</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="{% url 'Out' %}">Sign Out</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-success" href="{% url 'SignIn' %}">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'SignUp' %}">Sign Up</a>
+                        </li>
+                        
+                        {% endif %}
         </nav>
     </div>
         
