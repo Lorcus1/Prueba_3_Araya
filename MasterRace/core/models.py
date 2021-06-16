@@ -24,7 +24,7 @@ class Producto(models.Model):
     def ruta_imagen(self, filename):
         return f'productos/{self.ID}/{filename}'
 
-    magen = models.ImageField(upload_to = ruta_imagen, max_length = 9999, null = True, blank = True)
+    Imagen = models.ImageField(upload_to = ruta_imagen, max_length = 9999, null = True, blank = True)
 
     def __str__(self):
         return self.Nombre + '(' + str(self.ID) + ')'

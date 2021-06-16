@@ -2,7 +2,6 @@
 {% load static %}
 
 {%block body%}
-
     <div class="mx-auto container bg-light" style="padding-top: 1%;"  >
         <div class="row mt-4">
         <h2>Modificar producto</h2>
@@ -18,10 +17,10 @@
                 <label for="Fabricante" class="form-label">Fabricante :</label>
                 <select class="form-select " id="Fabricante" name="Fabricante">
                     {%for Fabricante in fabricantes%}
-                    {%if Fabricante.ID == producto.fabricante.ID%}
-                    <option value="{{fabricante.ID}}" selected>{{producto.Fabricante}}</option>
+                    {%if Fabricante.ID == producto.Fabricante.ID%}
+                    <option value="{{Fabricante.ID}}" selected>{{Fabricante.Nombre}}</option>
                     {%else%}
-                    <option value="{{fabricante.ID}}" >{{Fabricante.Nombre}}</option>
+                    <option value="{{Fabricante.ID}}" >{{Fabricante.Nombre}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -50,11 +49,16 @@
                 <input type="number" class="form-control" id="Stock" name="Stock" value="{{producto.Stock}}">
             </div>
             
-    
+            <div class="mb-2">
+                <label for="Imagen" class="form-label">Imagen: </label>
+                <input class="form-control" type="file" id="Imagen" name="Imagen" value="{{Producto.Imagen}}">
+            </div>
             <div class="mb-2">
                 <button type="submit" class="btn btn-success">Modificar producto</button>
             </div>
         </form>
     </div>
+    
     </div>
+    
 {%endblock%}

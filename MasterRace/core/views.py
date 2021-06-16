@@ -30,11 +30,12 @@ def Add(request):
     id_Componente   = request.POST.get('Componente','')
     Precio          = request.POST.get('Precio','')
     Stock           = request.POST.get('Stock','')
+    Imagen          = request.FILES.get('Imagen','')
 
     fabricante = Fabricante.objects.get(ID=id_Fabricante)
     componente = Componente.objects.get(ID=id_Componente)
 
-    producto = Producto(Nombre=Nombre,Fabricante=fabricante,Componente=componente,Precio=Precio,Stock=Stock)
+    producto = Producto(Nombre=Nombre,Fabricante=fabricante,Componente=componente,Precio=Precio,Stock=Stock, Imagen=Imagen)
     producto.save()
     return redirect('Panel')
 
@@ -48,23 +49,38 @@ def FormModProd(request, ID):
     return render(request, 'modificarProducto.html',contexto)
 
 def Mod(request, ID):
+    
     Nombre          = request.POST.get('Nombre','')
     id_Fabricante   = request.POST.get('Fabricante','')
+    fabricante      = Fabricante.objects.get(ID=id_Fabricante)
+
     id_Componente   = request.POST.get('Componente','')
+    componente      = Componente.objects.get(ID=id_Componente)
+    
     Precio          = request.POST.get('Precio','')
     Stock           = request.POST.get('Stock','')
+    Imagen          = request.FILES.get('Imagen')
 
     producto = Producto.objects.get(ID = ID)
     producto.Nombre = Nombre
-    producto.id_Fabricante = Fabricante
-    producto.id_Componente = Componente
+    producto.Fabricante = fabricante
+    producto.Componente = componente
     producto.Precio = Precio
     producto.Stock = Stock
-    
+    print(Imagen)
+        
+    if(Imagen!=''):
+        producto.Imagen = Imagen
+
     producto.save()
     
     return redirect('Panel')
 
+def Del (request, ID):
+    producto = Producto.objects.get(ID=ID)
+    producto.delete()
+    return redirect('Panel')
+    
 #Login
 def SignIn(request):
     contexto={}
