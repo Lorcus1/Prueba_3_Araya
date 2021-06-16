@@ -9,7 +9,7 @@
         <img src="../static/img/interface/add.ico" alt="Añadir productos" style="margin-bottom: 2%;margin-top: 2%; max-width: 40px;">
     </a></h2> 
     <div class="row">
-        {% for Producto in productos %}
+        
         <div class="col-md-12 container justify-content-center">
               <table class="table" style="text-align: center;">
                 <thead>
@@ -25,6 +25,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    {% for Producto in productos %}
                     <th scope="row">{{Producto.ID}}</th>
                     <td>{{Producto.Nombre}}</td>
                     <td>{{Producto.Fabricante}}</td>
@@ -32,21 +33,23 @@
                     <td>$ {{Producto.Precio}}</td>
                     <td>{{Producto.Stock}}</td>
                     <td>
-                        <a href="{% url 'FormAddProd' %}">
-                            <button type="button" class="btn btn-success ml-3 " style="margin-right: 1%;">Editar</button>
+                        <a href="{% url 'FormModProd' Producto.ID  %}">
+                            <button type="button" class="btn btn-success ml-3 " >Editar</button>
                         </a>
-                        <a href="{% url 'FormAddProd' %}">
+                        <a href="#">
                             <button type="button" class="btn btn-warning ml-3 ">Imagen</button>
                         </a>
-                        <a href="{% url 'FormAddProd' %}">
+                        <a href="#">
                             <button type="button" class="btn btn-danger ml-3 ">Eliminar</button>
                         </a>
                     </td>
+                    
                   </tr>
+                  {% endfor %}
                 </tbody>
               </table>
         </div>
-        {% endfor %}
+        
     </div>
 </div>
 

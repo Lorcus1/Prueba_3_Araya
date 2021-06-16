@@ -3,16 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
+#Index
 def index(request):
     productos = Producto.objects.all()
     contexto = {'productos': productos}
     return render(request, 'index.html',contexto)  
 
-def FormAddProd(request):
-    fabricantes = Fabricante.objects.all()
-    componentes = Componente.objects.all()
-    contexto = {'fabricantes': fabricantes, 'componentes': componentes}
-    return render(request, 'agregarProducto.html',contexto)
 
 #Administrativo 
 def Panel(request):
@@ -20,7 +16,55 @@ def Panel(request):
     contexto = {'productos': productos}
     return render(request,'panel.html', contexto)
 
+#Agregar Producto
+def FormAddProd(request):
+    fabricantes = Fabricante.objects.all()
+    componentes = Componente.objects.all()
+    contexto = {'fabricantes': fabricantes, 'componentes': componentes}
+    return render(request, 'agregarProducto.html',contexto)
+
+def Add(request):
+    ID              = request.POST.get('ID','')
+    Nombre          = request.POST.get('Nombre','')
+    id_Fabricante   = request.POST.get('Fabricante','')
+    id_Componente   = request.POST.get('Componente','')
+    Precio          = request.POST.get('Precio','')
+    Stock           = request.POST.get('Stock','')
+
+    fabricante = Fabricante.objects.get(ID=id_Fabricante)
+    componente = Componente.objects.get(ID=id_Componente)
+
+    producto = Producto(Nombre=Nombre,Fabricante=fabricante,Componente=componente,Precio=Precio,Stock=Stock)
+    producto.save()
+    return redirect('Panel')
+
+#Modificar Producto
+def FormModProd(request, ID):
+    producto =Producto.objects.get(ID = ID)
+    fabricantes = Fabricante.objects.all()
+    componentes = Componente.objects.all()
+    contexto = {'producto': producto , 'fabricantes' : fabricantes, 'componentes' : componentes}
+
+    return render(request, 'modificarProducto.html',contexto)
+
+def Mod(request, ID):
+    Nombre          = request.POST.get('Nombre','')
+    id_Fabricante   = request.POST.get('Fabricante','')
+    id_Componente   = request.POST.get('Componente','')
+    Precio          = request.POST.get('Precio','')
+    Stock           = request.POST.get('Stock','')
+
+    producto = Producto.objects.get(ID = ID)
+    producto.Nombre = Nombre
+    producto.id_Fabricante = Fabricante
+    producto.id_Componente = Componente
+    producto.Precio = Precio
+    producto.Stock = Stock
     
+    producto.save()
+    
+    return redirect('Panel')
+
 #Login
 def SignIn(request):
     contexto={}

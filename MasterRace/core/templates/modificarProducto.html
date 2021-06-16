@@ -5,22 +5,24 @@
 
     <div class="mx-auto container bg-light" style="padding-top: 1%;"  >
         <div class="row mt-4">
-        <h2>Agregar producto</h2>
-        <form action="{% url 'Add' %}" method="POST" enctype="multipart/form-data" class="col-md-8  container justify-content-center mt-4 mb-4">
+        <h2>Modificar producto</h2>
+        <form action="{% url 'Mod' producto.ID %}" method="POST" enctype="multipart/form-data" class="col-md-8 container justify-content-center mt-4 mb-4">
             {% csrf_token %}
        
             <div class="mb-2">
                 <label for="Nombre" class="form-label">Nombre :</label>
-                <input type="text" class="form-control" id="Nombre" name="Nombre">
+                <input type="text" class="form-control" id="Nombre" name="Nombre" value="{{producto.Nombre}}">
             </div>
 
             <div class="mb-2"> 
                 <label for="Fabricante" class="form-label">Fabricante :</label>
                 <select class="form-select " id="Fabricante" name="Fabricante">
                     {%for Fabricante in fabricantes%}
-     
-                    <option value="{{Fabricante.ID}}" >{{Fabricante.Nombre}}</option>
-
+                    {%if Fabricante.ID == producto.fabricante.ID%}
+                    <option value="{{fabricante.ID}}" selected>{{producto.Fabricante}}</option>
+                    {%else%}
+                    <option value="{{fabricante.ID}}" >{{Fabricante.Nombre}}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -29,30 +31,28 @@
                 <label for="Componente" class="form-label">Componente :</label>
                 <select class="form-select " id="Componente" name="Componente">
                     {%for Componente in componentes%}
-
-                    <option value="{{Componente.ID}}" >{{Componente.Nombre}}</option>
- 
+                    {%if Componente.ID == producto.Componente.ID%}
+                        <option value="{{Componente.ID}}" selected>{{Componente.Nombre}}</option>
+                    {%else%}
+                    <option value="{{Componente.ID}}">{{Componente.Nombre}}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
         
             <div class="mb-2">
                 <label for="Precio" class="form-label">Precio :</label>
-                <input type="number" class="form-control" id="Precio" name="Precio">
+                <input type="number" class="form-control" id="Precio" name="Precio" value="{{producto.Precio}}">
             </div>
 
             <div class="mb-2">
                 <label for="Stock" class="form-label">Stock :</label>
-                <input type="number" class="form-control" id="Stock" name="Stock">
+                <input type="number" class="form-control" id="Stock" name="Stock" value="{{producto.Stock}}">
             </div>
             
-        
+    
             <div class="mb-2">
-                <label for="Imagen" class="form-label">Imagen: </label>
-                <input class="form-control" type="file" id="Imagen" name="Imagen">
-              </div>
-            <div class="mb-2">
-                <button type="submit" class="btn btn-success">Agregar producto</button>
+                <button type="submit" class="btn btn-success">Modificar producto</button>
             </div>
         </form>
     </div>
