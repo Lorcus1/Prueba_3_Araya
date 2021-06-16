@@ -4,10 +4,76 @@
 {% block body%}
 <div class="container bg-light col-md-10" style="padding: 2%;"> 
     
-    <h2 class="justify-content-between">Productos 
-    <a href="{% url 'FormAddProd' %}">
-        <img src="../static/img/interface/add.ico" alt="Añadir productos" style="margin-bottom: 2%;margin-top: 2%; max-width: 40px;">
-    </a></h2> 
+    <div><h2 class="justify-content-between">Productos 
+    <!-- Boton agregarProducto -->
+    <img src="../static/img/interface/add.ico" type="button" data-bs-toggle="modal" data-bs-target="#Add" alt="Añadir productos" style="margin-bottom: 2%;margin-top: 2%; max-width: 40px;">
+    </h2> 
+     
+   
+    <div class="modal fade" id="Add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Añadir producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'Add' %}" method="POST" enctype="multipart/form-data" class="col-md-8  container justify-content-center mt-4 mb-4">
+              {% csrf_token %}
+         
+              <div class="mb-2">
+                  <label for="Nombre" class="form-label">Nombre :</label>
+                  <input type="text" class="form-control" id="Nombre" name="Nombre">
+              </div>
+  
+              <div class="mb-2"> 
+                  <label for="Fabricante" class="form-label">Fabricante :</label>
+                  <select class="form-select " id="Fabricante" name="Fabricante">
+                      {%for Fabricante in fabricantes%}
+       
+                      <option value="{{Fabricante.ID}}" >{{Fabricante.Nombre}}</option>
+  
+                      {% endfor %}
+                  </select>
+              </div>
+  
+              <div class="mb-2"> 
+                  <label for="Componente" class="form-label">Componente :</label>
+                  <select class="form-select " id="Componente" name="Componente">
+                      {%for Componente in componentes%}
+  
+                      <option value="{{Componente.ID}}" >{{Componente.Nombre}}</option>
+   
+                      {% endfor %}
+                  </select>
+              </div>
+          
+              <div class="mb-2">
+                  <label for="Precio" class="form-label">Precio :</label>
+                  <input type="number" class="form-control" id="Precio" name="Precio">
+              </div>
+  
+              <div class="mb-2">
+                  <label for="Stock" class="form-label">Stock :</label>
+                  <input type="number" class="form-control" id="Stock" name="Stock">
+              </div>
+              
+          
+              <div class="mb-2">
+                  <label for="Imagen" class="form-label">Imagen: </label>
+                  <input class="form-control" type="file" id="Imagen" name="Imagen">
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Agregar producto</button>
+          </form>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="row">
         
         <div class="col-md-12 container justify-content-center">
@@ -33,38 +99,134 @@
                     <td>$ {{Producto.Precio}}</td>
                     <td>{{Producto.Stock}}</td>
                     <td>
-                      
-                        <a href="{% url 'FormModProd' Producto.ID  %}">
-                            <button type="button" class="btn btn-success ml-3 " >Editar</button>
-                        </a>
-                        <a href="#">
-                            <button type="button" class="btn btn-warning ml-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">Imagen</button>
-                        </a>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                       <button type="button" class="btn btn-success ml-3 " data-bs-toggle="modal" data-bs-target="#modal_edit_{{forloop.counter}}">
+                            Editar
+                          </button>
+
+                          <!-- Boton editar-->
+                          <div class="modal fade" id="modal_edit_{{forloop.counter}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Modificar {{Producto.Nombre}} (ID:{{Producto.ID}})</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  
+                                  <form action="{% url 'Mod' Producto.ID %}" method="POST" enctype="multipart/form-data" class="col-md-8 container justify-content-center mt-4 mb-4">
+                                    {% csrf_token %}
+                               
+                                    <div class="mb-2">
+                                        <label for="Nombre" class="form-label">Nombre :</label>
+                                        <input type="text" class="form-control" id="Nombre" name="Nombre" value="{{Producto.Nombre}}">
+                                    </div>
+                        
+                                    <div class="mb-2"> 
+                                        <label for="Fabricante" class="form-label">Fabricante :</label>
+                                        <select class="form-select " id="Fabricante" name="Fabricante">
+                                            {%for Fabricante in fabricantes%}
+                                            {%if Fabricante.ID == Producto.Fabricante.ID%}
+                                            <option value="{{Fabricante.ID}}" selected>{{Fabricante.Nombre}}</option>
+                                            {%else%}
+                                            <option value="{{Fabricante.ID}}" >{{Fabricante.Nombre}}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                        
+                                    <div class="mb-2"> 
+                                        <label for="Componente" class="form-label">Componente :</label>
+                                        <select class="form-select " id="Componente" name="Componente">
+                                            {%for Componente in componentes%}
+                                            {%if Componente.ID == Producto.Componente.ID%}
+                                                <option value="{{Componente.ID}}" selected>{{Componente.Nombre}}</option>
+                                            {%else%}
+                                            <option value="{{Componente.ID}}">{{Componente.Nombre}}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                
+                                    <div class="mb-2">
+                                        <label for="Precio" class="form-label">Precio :</label>
+                                        <input type="number" class="form-control" id="Precio" name="Precio" value="{{Producto.Precio}}">
+                                    </div>
+                        
+                                    <div class="mb-2">
+                                        <label for="Stock" class="form-label">Stock :</label>
+                                        <input type="number" class="form-control" id="Stock" name="Stock" value="{{Producto.Stock}}">
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <label for="Imagen" class="form-label">Imagen: </label>
+                                        <input class="form-control" type="file" id="Imagen" name="Imagen" value="{{Producto.Imagen}}">
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-success">Modificar producto</button>
+                                    </form>
+                                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>   
+                        
+                            <!-- Boton verImagen-->
+                        <button type="button" class="btn btn-warning ml-3 " data-bs-toggle="modal" data-bs-target="#exampleModal_{{forloop.counter}}"> Ver imagen </button>
+                        <div class="modal fade" id="exampleModal_{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Imagen</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">{{Producto.Nombre}} (ID:{{Producto.ID}})</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                {%for Producto in productos%}
-                                {%if Producto.ID == producto.ID%}
+                                
                                 <img src="/static/media/{{Producto.Imagen}}" height="400px">
-                                {%else%}
-                                <img src="/static/media/{{Producto.Imagen}}" height="400px">
-                                {%endif%}
-                                {%endfor%}
+                               
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <a href="{% url 'Del' Producto.ID  %}">
-                            <button type="button" class="btn btn-danger ml-3 ">Eliminar</button>
-                        </a>
+
+
+                        
+
+
+
+                        <!-- Boton Eliminar -->
+                      <button type="button" class="btn btn-danger ml-3" data-bs-toggle="modal" data-bs-target="#modal_del">
+                        Eliminar
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal_del" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Eliminar {{Producto.Nombre}} (ID:{{Producto.ID}})</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="text-align: left;">
+                              <h5>¿Estás seguro de eliminar {{Producto.Nombre}} de la tienda?</h5>
+                              <ul style="text-align: left; padding-left: 20%;">
+                                <li >Ésta acción <b>SOLO</b> eliminará el producto</li>
+                                <li>Ésta acción <b>NO</b> eliminará el registro de compras</li>
+                                <li>Ésta acción <b>NO</b> se podrá deshacer</li>
+                              </ul>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="{% url 'Del' Producto.ID  %}">
+                                <button type="button" class="btn btn-success ml-3 ">Sí, eliminar </button>
+                            </a>
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     
                   </tr>

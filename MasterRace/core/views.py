@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 #Index
 def index(request):
-    productos = Producto.objects.all()
+    productos   = Producto.objects.all()
     contexto = {'productos': productos}
     return render(request, 'index.html',contexto)  
 
@@ -13,7 +13,9 @@ def index(request):
 #Administrativo 
 def Panel(request):
     productos = Producto.objects.all()
-    contexto = {'productos': productos}
+    fabricantes = Fabricante.objects.all()
+    componentes = Componente.objects.all()
+    contexto = {'productos': productos, 'fabricantes':fabricantes,'componentes':componentes}
     return render(request,'panel.html', contexto)
 
 #Agregar Producto
@@ -46,7 +48,7 @@ def FormModProd(request, ID):
     componentes = Componente.objects.all()
     contexto = {'producto': producto , 'fabricantes' : fabricantes, 'componentes' : componentes}
 
-    return render(request, 'modificarProducto.html',contexto)
+    return render(request, 'Panel.html',contexto)
 
 def Mod(request, ID):
     
