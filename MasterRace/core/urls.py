@@ -1,7 +1,7 @@
 from core.models import Producto
 from django.contrib import admin
 from django.urls import path, include
-from core.views import index, FormAddProd, Panel, SignIn, In, Out, SignUp, CreateUser, Add, FormModProd, Mod,Del
+from core.views import index, FormAddProd, Panel, SignIn, In, Out, SignUp, CreateUser, Add, FormModProd, Mod,Del,Prod
 
 urlpatterns = [
     path('',index, name='index'),
@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('panel/del/<int:ID>', Del, name='Del'),
 
+    path('prod/<int:ID>',Prod, name='Prod'),
 
     path('signin/', SignIn, name='SignIn'),
     path('signin/in/', In, name='In'),

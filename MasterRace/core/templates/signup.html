@@ -2,13 +2,16 @@
 {% load static %}
 
 {% block body%}
-<section class="mx-auto container col-md-10 bg-light " >
+<section class="mx-auto bg-light " >
       <div class="row">
           <form action="{% url 'CreateUser' %}" method="POST" class="container  col-md-5 justify-content-center mt-5 " style="margin-bottom: 20%;background-color:whitesmoke;padding: 5%; "   > 
             {% csrf_token %}
-            <img class="rounded mx-auto d-block" src="../static/img/user-login.png" alt="" width="100px">
 
+            <div class="mb-4"><h1>Registrarse</h1></div>
             <div class="mb-3">
+
+            <img class="rounded mx-auto d-block" src="../static/img/interface/user-signin.png" alt="" width="100px">
+            
                 <label for="usuario" class="form-label">Usuario: </label>
                 <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese usuario">
               </div>

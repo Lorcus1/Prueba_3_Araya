@@ -19,9 +19,9 @@
 
     <title>PC MASTER RACE</title>
     </head>
-    <body background="../static/img/interface/bg.jpg">
-        <div class="container ">
-        <nav class="navbar navbar-expand navbar-dark bg-dark" >
+    <body background="../static/img/interface/bg.jpg" class="container">
+        
+        <nav class=" navbar navbar-expand navbar-dark bg-dark" >
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="../static/img/interface/pc-logo.jpg" width="50" height="auto" alt="" style="margin-right: 2%;border-radius: 100%;" >
             </a>
@@ -36,36 +36,14 @@
                 <a class="nav-link" href="{% url 'index' %}">Inicio </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">MB</a>
-                </li>
-
-                <li class="nav-item " >
-                    <a class="nav-link" href="#">CPU</a>
-                </li>
+                
+                {%for Componente in componentes%}
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">GPU</a>
+                    <a class="nav-link" href="{% url 'Prod' Componente.ID%}">{{Componente.Nombre}}</a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">PSU</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">RAM</a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">HDD</a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">SSD</a>
-                </li>
-
-                <li class="nav-item "s>
-                    <a class="nav-link" href="#">M2</a>
-                </li>
+                {%endfor%}
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -94,7 +72,7 @@
                         
                         {% endif %}
         </nav>
-    </div>
+    
         
         {% block body %}
         {% endblock %}

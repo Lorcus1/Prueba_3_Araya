@@ -3,11 +3,24 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-#Index
+#Pantallas
 def index(request):
     productos   = Producto.objects.all()
-    contexto = {'productos': productos}
+    componentes = Componente.objects.all()
+    contexto = {'productos': productos,'componentes':componentes }
     return render(request, 'index.html',contexto)  
+
+"""def Prod(request,ID):
+    productos = Producto.objects.get(ID = ID)
+    componentes = Componente.objects.all()
+    contexto = {'productos': productos, 'componentes':componentes }
+    return render(request,'producto.html',contexto)"""
+    
+def Prod(request,ID):
+    componentes = Componente.objects.filter(ID=ID)
+    productos = Producto.objects.filter(Componente=ID)
+
+    return render(request,'producto.html', {'productos':productos, 'componentes': componentes})
 
 
 #Administrativo 
@@ -85,7 +98,8 @@ def Del (request, ID):
     
 #Login
 def SignIn(request):
-    contexto={}
+    componentes = Componente.objects.all()
+    contexto={'componentes':componentes}
     return render(request,'signin.html',contexto)
 
 def In(request):
@@ -99,7 +113,7 @@ def In(request):
         
         return redirect('index')
     else:
-        return redirect(SignIn)
+        return redirect(SignUp)
 
 def Out(request):
     logout(request)
@@ -110,7 +124,8 @@ def Out(request):
 #Register
 
 def SignUp(request):
-    contexto={}
+    componentes = Componente.objects.all()
+    contexto={'componentes':componentes}
     return render(request,'signup.html',contexto)
 
 def CreateUser(request):

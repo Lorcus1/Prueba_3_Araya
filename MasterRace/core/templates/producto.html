@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body%}
+
+<div class="d-flex justify-content-center bg-light" >
+  <div class="container">   
+     <div class="row">
+       {% for Producto in productos %}
+       {%if Producto.Stock != 0 %}
+       <div class="col-3">
+         <div class="card" style="width: 18rem; display:inline-flex;margin-top: 10px;">
+          <a href="#">
+          <img src="/static/media/{{Producto.Imagen}}"  class="card-img-top">
+          </a>
+          <div class="card-body">
+            <h5 class="card-text">{{Producto.Nombre}}</h5>
+            <p class="card-text">Fabricante: {{Producto.Fabricante}}</p>
+            <p class="card-text">Precio: ${{Producto.Precio}}</p>
+            <p class="card-text">Stock: {{Producto.Stock}}</p>
+            
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-lg btn-success" style="border:none; float: right;"> 
+            <img src="../static/img/interface/shopcar.svg" width="30px"> Comprar</button>
+            
+          </div>
+     
+        </div> 
+       </div>
+       {%endif%}
+         {% endfor %}
+       </div>
+   </div>
+ </div>
+        
+     
+
+
+
+                
+{% endblock%}
